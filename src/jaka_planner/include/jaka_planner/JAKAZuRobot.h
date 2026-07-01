@@ -82,7 +82,8 @@ public:
 	*
 	* @return Indicate the status of operation. ERR_SUCC for success and other for failure.
 	*/
-	errno_t login_in(const char *ip, bool grpc_flag = false);
+	// errno_t login_in(const char *ip, bool grpc_flag = false); // Xinjue
+	errno_t login_in(const char *ip);
 
 	/**
     * @brief Disconnect the controller. The connection with the cobot will be then terminated.

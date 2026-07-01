@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     auto nh = rclcpp::Node::make_shared("moveit_server");
     string default_ip = "10.5.5.100";
     string robot_ip = nh->declare_parameter("ip", default_ip);
-    robot.login_in(robot_ip.c_str(), false);
+    robot.login_in(robot_ip.c_str()); // Xinjue
     robot.power_on();
     robot.enable_robot();
 

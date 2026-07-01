@@ -96,8 +96,12 @@ set(LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 link_directories(${LIBRARY_DIR})
 
 # Find the library and link it properly
-target_link_libraries(moveit_server ${LIBRARY_DIR}/libjakaAPI.so)
-target_link_libraries(moveit_test ${LIBRARY_DIR}/libjakaAPI.so)
+# amd64
+# target_link_libraries(moveit_server ${LIBRARY_DIR}/libjakaAPI.so)
+# target_link_libraries(moveit_test ${LIBRARY_DIR}/libjakaAPI.so)
+# arm64
+target_link_libraries(moveit_server ${LIBRARY_DIR}/arm/libjakaAPI.so)
+target_link_libraries(moveit_test ${LIBRARY_DIR}/arm/libjakaAPI.so)
 
 # Install executables
 install(TARGETS

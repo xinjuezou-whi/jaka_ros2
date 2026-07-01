@@ -82,7 +82,8 @@ public:
 	*
 	* @return Indicate the status of operation. ERR_SUCC for success and other for failure.
 	*/
-	errno_t login_in(const char *ip, bool grpc_flag = false);
+	// errno_t login_in(const char *ip, bool grpc_flag = false); // Xinjue
+	errno_t login_in(const char *ip);
 
 	/**
     * @brief Disconnect the controller. The connection with the cobot will be then terminated.
@@ -279,7 +280,8 @@ public:
 	*
 	* @return Indicate the status of operation. ERR_SUCC for success and other for failure.
 	*/
-	errno_t linear_move(const CartesianPose *end_pos, MoveMode move_mode, BOOL is_block, double speed, double accel = 500, double tol = 0, const OptionalCond *option_cond = nullptr, double ori_vel=3.14, double ori_acc=12.56);
+	// errno_t linear_move(const CartesianPose *end_pos, MoveMode move_mode, BOOL is_block, double speed, double accel = 500, double tol = 0, const OptionalCond *option_cond = nullptr, double ori_vel=3.14, double ori_acc=12.56); // Xinjue
+	errno_t linear_move(const CartesianPose *end_pos, MoveMode move_mode, BOOL is_block, double speed);
 
 	/**
 	* @brief Move the cobot in Cartesan space and the TCP will move along the definded arc.

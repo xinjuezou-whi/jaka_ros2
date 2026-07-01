@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
     string robot_model = node->declare_parameter("model", default_model);
 
     // Connect to robot
-    robot.login_in(robot_ip.c_str(), false);
+    robot.login_in(robot_ip.c_str()); // Xinjue
     rclcpp::Rate rate(125);
 
     // Turn off servo at startup

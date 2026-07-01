@@ -111,10 +111,16 @@ set(LIBRARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 link_directories(${LIBRARY_DIR})
 
 # Find the library and link it properly
-target_link_libraries(jaka_driver ${LIBRARY_DIR}/libjakaAPI.so)
-target_link_libraries(sdk_test ${LIBRARY_DIR}/libjakaAPI.so)
-target_link_libraries(client ${LIBRARY_DIR}/libjakaAPI.so)
-target_link_libraries(servoj_demo ${LIBRARY_DIR}/libjakaAPI.so)
+# amd64
+# target_link_libraries(jaka_driver ${LIBRARY_DIR}/libjakaAPI.so)
+# target_link_libraries(sdk_test ${LIBRARY_DIR}/libjakaAPI.so)
+# target_link_libraries(client ${LIBRARY_DIR}/libjakaAPI.so)
+# target_link_libraries(servoj_demo ${LIBRARY_DIR}/libjakaAPI.so)
+# arm64
+target_link_libraries(jaka_driver ${LIBRARY_DIR}/arm/libjakaAPI.so)
+target_link_libraries(sdk_test ${LIBRARY_DIR}/arm/libjakaAPI.so)
+target_link_libraries(client ${LIBRARY_DIR}/arm/libjakaAPI.so)
+target_link_libraries(servoj_demo ${LIBRARY_DIR}/arm/libjakaAPI.so)
 
 # Install executables
 install(TARGETS

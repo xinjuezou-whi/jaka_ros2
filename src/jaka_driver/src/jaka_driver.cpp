@@ -91,7 +91,8 @@ bool linear_move_callback(const shared_ptr<jaka_msgs::srv::Move::Request> reques
     // end_pose.rpy.ry = rpy.y();
     // end_pose.rpy.rz = rpy.z();
     
-    int ret = robot.linear_move(&end_pose, MoveMode::ABS, TRUE, speed, accel, tol, option_cond);
+    // int ret = robot.linear_move(&end_pose, MoveMode::ABS, TRUE, speed, accel, tol, option_cond); // Xinjue
+    int ret = robot.linear_move(&end_pose, MoveMode::ABS, TRUE, speed);
     switch(ret)
     {
         case 0:
@@ -785,8 +786,8 @@ void joint_position_callback(const rclcpp::Publisher<sensor_msgs::msg::JointStat
 void robot_states_callback(const rclcpp::Publisher<jaka_msgs::msg::RobotMsg>::SharedPtr& robot_states_pub)
 {
     jaka_msgs::msg::RobotMsg robot_states;
-    // RobotStatus robotstatus;
-    RobotStatus_simple robotstatus_simple;
+    RobotStatus robotstatus;
+    // RobotStatus_simple robotstatus_simple; // Xinjue
     ProgramState programstate;
     BOOL in_pos = true;
     BOOL in_col = false;
@@ -795,18 +796,18 @@ void robot_states_callback(const rclcpp::Publisher<jaka_msgs::msg::RobotMsg>::Sh
     robot.is_in_pos(&in_pos);
     robot.is_in_collision(&in_col);
     robot.is_in_drag_mode(&drag_mode);
-    robot.is_in_estop(&emergency_stop);
-    // robot.get_robot_status(&robotstatus);
-    robot.get_robot_status_simple(&robotstatus_simple);
+    // robot.is_in_estop(&emergency_stop); // Xinjue
+    robot.get_robot_status(&robotstatus);
+    // robot.get_robot_status_simple(&robotstatus_simple); // Xinjue
     robot.get_program_state(&programstate);
 
-    // if(robotstatus.emergency_stop)
-    if(emergency_stop)
+    if(robotstatus.emergency_stop)
+    // if(emergency_stop) // Xinjue
     {
         robot_states.motion_state = 2;
     }
-    // else if(robotstatus.errcode)
-    else if(robotstatus_simple.errcode)
+    else if(robotstatus.errcode)
+    // else if(robotstatus_simple.errcode) // Xinjue
     {
         robot_states.motion_state = 4;
     }
@@ -825,8 +826,8 @@ void robot_states_callback(const rclcpp::Publisher<jaka_msgs::msg::RobotMsg>::Sh
         robot_states.motion_state = 3;
     }
 
-    // if(robotstatus.powered_on)
-    if(robotstatus_simple.powered_on)
+    if(robotstatus.powered_on)
+    // if(robotstatus_simple.powered_on) // Xinjue
     {
         robot_states.power_state = 1;
  
@@ -836,8 +837,8 @@ void robot_states_callback(const rclcpp::Publisher<jaka_msgs::msg::RobotMsg>::Sh
         robot_states.power_state = 0;
     }
 
-    // if(robotstatus.enabled)
-    if(robotstatus_simple.enabled)
+    if(robotstatus.enabled)
+    // if(robotstatus_simple.enabled) // Xinjue
     {
         robot_states.servo_state = 1;
     }
@@ -919,7 +920,7 @@ int main(int argc, char *argv[])
     // robot.login_in(argv[1]);
     string default_ip = "10.5.5.100";
     string robot_ip = node->declare_parameter("ip", default_ip);
-    robot.login_in(robot_ip.c_str(), false);
+    robot.login_in(robot_ip.c_str()); // Xinjue
     robot.set_status_data_update_time_interval(100);
     robot.set_block_wait_timeout(120);
     robot.power_on();
